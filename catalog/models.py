@@ -33,14 +33,14 @@ class Product(models.Model):
         blank=True,
         related_name="categories",
     )
-    description_product = models.TextField(
+    description = models.TextField(
         blank=True, null=True, verbose_name="Описание продукта", help_text="Введите описание продукта"
     )
     image = models.ImageField(
         upload_to="products/images",
         blank=True,
         null=True,
-        verbose_name="Загрузите изображение продукта",
+        verbose_name="Изображение продукта",
         help_text="Загрузите изображение продукта",
     )
     purchase_price = models.FloatField(verbose_name="Цена продукта", help_text="Введите цену продукта")
