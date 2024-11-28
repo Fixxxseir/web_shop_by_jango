@@ -68,7 +68,9 @@ class Contact(models.Model):
     class Meta:
         verbose_name = "Контакт"
         verbose_name_plural = "Контакты"
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
     def __str__(self):
         return self.name
