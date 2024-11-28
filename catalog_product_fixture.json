@@ -1,0 +1,119 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "Картофель",
+        "category": 1,
+        "description": "Картофель деревенский",
+        "image": "",
+        "purchase_price": 80.0,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "Морковь",
+        "category": 1,
+        "description": "Морковь мытая",
+        "image": "",
+        "purchase_price": 40.0,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "name": "Мёд",
+        "category": 1,
+        "description": "Мёд - разнотравье, сделанный по ЭКО стандарту",
+        "image": "",
+        "purchase_price": 3000.0,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "name": "Пылесос",
+        "category": 2,
+        "description": "Робот пылесос, уберет весь дом за вас",
+        "image": "",
+        "purchase_price": 500000.0,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+        "name": "Холодильник",
+        "category": 2,
+        "description": "Заморозит всю квартиру если не закрыть дверцу",
+        "image": "",
+        "purchase_price": 3500000.0,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+        "name": "Микроволновая печь",
+        "category": 2,
+        "description": "Разогреет абсолютно всё",
+        "image": "",
+        "purchase_price": 100000,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+        "name": "Сёмга",
+        "category": 1,
+        "description": "Филе свежей только что выловленной Сёмги.",
+        "image": "products/images/Красная_рыба.jpg",
+        "purchase_price": 3000.0,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+        "name": "Кофе машина",
+        "category": 2,
+        "description": "Автоматическая кофемашина Saeco Royal Professional, серебристая",
+        "image": "products/images/Кофе_Машина_Saeco.jpg",
+        "purchase_price": 80000.0,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+        "name": "Стационарный ПК",
+        "category": 3,
+        "description": "Полностью укомлпектованный стационарный ПК с монитором, мышкой, клавиатурой и прочее.....",
+        "image": "",
+        "purchase_price": 1000000.0,
+        "created_at": "2024-11-28",
+        "updated_at": "2024-11-28"
+    }
+}
+]

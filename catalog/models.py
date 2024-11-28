@@ -57,4 +57,4 @@ class Product(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.name} {self.category}"
+        return f"'{self.name}' в категории: {self.category}"
