@@ -69,6 +69,31 @@
         </div>
     </div>
 
+    <div class="row text-start mt-4">
+        <div class="col-12">
+            <h2>Список контактов</h2>
+            <div class="row">
+                {% for contact in contacts %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <p><strong>Имя:</strong> {{ contact.name }}</p>
+                                <p><strong>Телефон:</strong> {{ contact.phone }}</p>
+                                <p><strong>Почта:</strong> {{ contact.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-warning" role="alert">
+                            Нет доступных контактных данных.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md">

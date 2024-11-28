@@ -58,3 +58,17 @@ class Product(models.Model):
 
     def __str__(self):
         return f"'{self.name}' в категории: {self.category}"
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=150, verbose_name="Имя для связи", help_text="Введите контактное имя")
+    phone = models.CharField(max_length=16, verbose_name="Номер для связи", help_text="Введите контактный номер")
+    email = models.EmailField(verbose_name="Почта для связи", help_text="Введите свою контактную почту")
+
+    class Meta:
+        verbose_name = "Контакт"
+        verbose_name_plural = "Контакты"
+        ordering = ["name", ]
+
+    def __str__(self):
+        return self.name

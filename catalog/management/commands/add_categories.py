@@ -5,10 +5,10 @@ from catalog.models import Category
 
 
 class Command(BaseCommand):
-	help = " Добавление продуктов в БД с помощью фикстуры "
+    help = " Добавление продуктов в БД с помощью фикстуры "
 
-	def handle(self, *args, **kwargs):
-		Category.objects.all().delete()
+    def handle(self, *args, **kwargs):
+        Category.objects.all().delete()
 
-		call_command('loaddata', 'catalog_category_fixture.json')
-		self.stdout.write(self.style.SUCCESS('Успешное добавление данных в БД'))
+        call_command("loaddata", "catalog_category_fixture.json")
+        self.stdout.write(self.style.SUCCESS("Успешное добавление данных в БД"))
