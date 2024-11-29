@@ -31,7 +31,7 @@ class Product(models.Model):
         help_text="Введите категорию продукта",
         null=True,
         blank=True,
-        related_name="categories",
+        related_name="products",
     )
     description = models.TextField(
         blank=True, null=True, verbose_name="Описание продукта", help_text="Введите описание продукта"
