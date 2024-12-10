@@ -2,7 +2,6 @@
 
 {% block title %}Vebshop Partnership{% endblock %}
 
-
 {% block content %}
 {% include 'includes/header_add_product.html' %}
 
@@ -11,27 +10,33 @@
     <h2>Добавить товар</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="form-group mt-5">
-            <label for="{{ form.name.id_for_label }}">Название товара</label>
-            {{ form.name }}
-        </div>
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {% for f in form %}
         <div class="form-group mt-3">
-            <label for="{{ form.category.id_for_label }}">Категория</label>
-            {{ form.category }}
+            <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+            {{ f }}
         </div>
-        <div class="form-group mt-3">
-            <label for="{{ form.description.id_for_label }}">Описание</label>
-            {{ form.description }}
-        </div>
-        <div class="form-group mt-3">
-            <label for="{{ form.image.id_for_label }}">Изображение</label>
-            {{ form.image }}
-        </div>
-        <div class="form-group mt-3">
-            <label for="{{ form.purchase_price.id_for_label }}">Цена покупки</label>
-            {{ form.purchase_price }}
-        </div>
+        <div class="form-error">{{ f.errors }}</div>
+        {% endfor %}
         <button type="submit" class="btn btn-primary mt-2">Добавить товар</button>
     </form>
 </div>
 {% endblock %}
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="{{ form.category.id_for_label }}">Категория</label>-->
+<!--            {{ form.category }}-->
+<!--        </div>-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="{{ form.description.id_for_label }}">Описание</label>-->
+<!--            {{ form.description }}-->
+<!--        </div>-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="{{ form.image.id_for_label }}">Изображение</label>-->
+<!--            {{ form.image }}-->
+<!--        </div>-->
+<!--        <div class="form-group mt-3">-->
+<!--            <label for="{{ form.purchase_price.id_for_label }}">Цена покупки</label>-->
+<!--            {{ form.purchase_price }}-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary mt-2">Добавить товар</button>-->
+<!--    </form>-->
