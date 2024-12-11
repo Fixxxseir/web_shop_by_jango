@@ -8,7 +8,15 @@ from catalog.forms import ProductForm
 def home(request):
     latest_products = Product.objects.order_by("-created_at")[:5]
     print(f"Крайние 5 созданных продуктов: {latest_products}")
-    return render(request, "catalog/home.html")
+    context = {
+        'main_title': 'Добро пожаловать на наш сайт',
+        'sub_title': 'U can buy everything......',
+        # 'main_link': 'catalog:home',
+        'main_link_text': 'Made by fixxseir',
+        'sub_link': 'catalog:contacts',
+        'sub_link_text': 'Дополнительная информация',
+    }
+    return render(request, "catalog/home.html", context=context)
 
 
 def contacts(request):
@@ -18,7 +26,16 @@ def contacts(request):
         phone = request.POST.get("phone")
         message = request.POST.get("message")
         return HttpResponse(f"Спасибо, {name}! Данные успешно отправлены.")
-    return render(request, "catalog/contacts.html", {"contacts": contacts_list})
+    context = {
+        "contacts": contacts_list,
+        'main_title': 'Спасибо, что посетили наш сайт',
+        'sub_title': 'Всегда ждём вашу обратную связь:)',
+        'main_link': 'catalog:home',
+        'main_link_text': 'На главную',
+        'sub_link': 'catalog:catalog',
+        'sub_link_text': 'Назад к покупкам',
+    }
+    return render(request, "catalog/contacts.html", context)
 
 
 def catalog(request):
@@ -28,7 +45,7 @@ def catalog(request):
     page_number = request.GET.get("page")
     paginator_products = paginator.get_page(page_number)
 
-    context = {"products": paginator_products, "paginator": paginator}
+    context = {"products": paginator_products, "paginator": paginator,}
     return render(request, "catalog/catalog.html", context)
 
 
@@ -50,4 +67,15 @@ def add_product(request):
     else:
         form = ProductForm()
 
-    return render(request, "catalog/add_product.html", {"form": form, "categories": categories})
+    context = {
+        "form": form,
+        "categories": categories,
+        'main_title': 'Здесь вы можете добавить свой товар',
+        'sub_title': 'Всегда ждём вашу обратную связь:)',
+        'main_link': 'catalog:home',
+        'main_link_text': 'На главную',
+        'sub_link': 'catalog:catalog',
+        'sub_link_text': 'Назад к покупкам',
+    }
+
+    return render(request, "catalog/add_product.html", context)
