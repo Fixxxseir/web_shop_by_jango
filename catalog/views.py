@@ -45,12 +45,12 @@ def catalog(request):
     page_number = request.GET.get("page")
     paginator_products = paginator.get_page(page_number)
 
-    context = {"products": paginator_products, "paginator": paginator,}
+    context = {"products": paginator_products, "paginator": paginator}
     return render(request, "catalog/catalog.html", context)
 
 
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
+def product_detail(request, product_slug):
+    product = get_object_or_404(Product, slug=product_slug)
     context = {"product": product}
     return render(request, "catalog/product_detail.html", context)
 
