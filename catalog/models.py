@@ -62,7 +62,7 @@ class Product(models.Model):
         return f"'{self.name}' в категории: {self.category}"
 
     def get_absolute_url(self):
-        return reverse('catalog:product_detail', kwargs={'product_slug': self.slug})
+        return reverse("catalog:product_detail", kwargs={"product_slug": self.slug})
 
 
 class Contact(models.Model):

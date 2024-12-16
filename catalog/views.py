@@ -1,5 +1,5 @@
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import View
@@ -17,12 +17,12 @@ class ProductHomeView(View):
         print(f"Крайние 5 созданных продуктов: {latest_products}")
 
         context = {
-            'main_title': 'Добро пожаловать на наш сайт',
-            'sub_title': 'U can buy everything......',
+            "main_title": "Добро пожаловать на наш сайт",
+            "sub_title": "U can buy everything......",
             # 'main_link': 'catalog:home',
-            'main_link_text': 'Made by fixxseir',
-            'sub_link': 'catalog:contacts',
-            'sub_link_text': 'Дополнительная информация',
+            "main_link_text": "Made by fixxseir",
+            "sub_link": "catalog:contacts",
+            "sub_link_text": "Дополнительная информация",
         }
 
         return render(request, self.template_name, context)
@@ -49,12 +49,12 @@ class ProductContactsView(View):
         contacts_list = Contact.objects.all()
         context = {
             "contacts": contacts_list,
-            'main_title': 'Спасибо, что посетили наш сайт',
-            'sub_title': 'Всегда ждём вашу обратную связь:)',
-            'main_link': 'catalog:home',
-            'main_link_text': 'На главную',
-            'sub_link': 'catalog:product_list',
-            'sub_link_text': 'Назад к покупкам',
+            "main_title": "Спасибо, что посетили наш сайт",
+            "sub_title": "Всегда ждём вашу обратную связь:)",
+            "main_link": "catalog:home",
+            "main_link_text": "На главную",
+            "sub_link": "catalog:product_list",
+            "sub_link_text": "Назад к покупкам",
         }
         return render(request, self.template_name, context)
 
@@ -91,9 +91,9 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         paginator = Paginator(self.get_queryset(), self.paginate_by)
-        page = self.request.GET.get('page', 1)
+        page = self.request.GET.get("page", 1)
         products = paginator.page(page)
-        context['products'] = products
+        context["products"] = products
 
         return context
 
@@ -113,7 +113,6 @@ class ProductDetailView(DetailView):
     model = Product
 
     def get_object(self, queryset=None):
-        print(self.kwargs)
         product_slug = self.kwargs.get("product_slug")
         return get_object_or_404(Product, slug=product_slug)
 
@@ -127,20 +126,22 @@ class ProductDetailView(DetailView):
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
-    template_name = 'catalog/add_product.html'
-    success_url = reverse_lazy('catalog:product_list')
+    template_name = "catalog/add_product.html"
+    success_url = reverse_lazy("catalog:product_list")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({
-            'categories': Category.objects.all(),
-            'main_title': 'Здесь вы можете добавить свой товар',
-            'sub_title': 'Всегда ждём вашу обратную связь:)',
-            'main_link': 'catalog:home',
-            'main_link_text': 'На главную',
-            'sub_link': 'catalog:product_list',
-            'sub_link_text': 'Назад к покупкам',
-        })
+        context.update(
+            {
+                "categories": Category.objects.all(),
+                "main_title": "Здесь вы можете добавить свой товар",
+                "sub_title": "Всегда ждём вашу обратную связь:)",
+                "main_link": "catalog:home",
+                "main_link_text": "На главную",
+                "sub_link": "catalog:product_list",
+                "sub_link_text": "Назад к покупкам",
+            }
+        )
         return context
 
 
