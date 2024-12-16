@@ -1,0 +1,158 @@
+{% extends 'BlogHaven/base.html' %}
+{% load my_blog_tags %}
+
+{% block title %}BlogHaven article{% endblock %}
+
+{% block content %}
+
+<div class="row mb-2">
+  {% for post in object_list %}
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{ post.title | truncatechars:21 }}</h3>
+          <p class="mt-3 mb-2 card-text mb-auto">{{ post.created_at }}</p>
+          <p class="mt-3 mb-2 card-text mb-auto">Просмотров:  {{ post.view_counter }}</p>
+          <a href="{{ post.get_absolute_url }}" class="icon-link gap-1 icon-link-hover stretched-link">
+            Читать
+            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+          </a>
+<!--          <a href="{% url 'BlogHaven:blog_update' post.slug %}" type="button" class="mt-3 btn btn-outline-info btn-sm">Изменить</a>-->
+<!--          <a href="{% url 'BlogHaven:blog_delete' post.slug %}" class="mt-2 btn btn-outline-danger btn-sm">Удалить</a>-->
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          {% if post.image %}
+          <img src="{{ post.image | media_filter_blog }}"  style="width: 200px; height: 250px;" />
+          {% else %}
+          <div style="width: 200px; height: 250px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+              <p style="color: black">Нет изображения</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block info %}
+  <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+        Изучение Django
+      </h3>
+
+      <article class="blog-post">
+        <h2 class="display-5 link-body-emphasis mb-1">Введение в Django</h2>
+        <p class="blog-post-meta">16 декабря 2024 года</p>
+
+        <p>Django — это высокоуровневый веб-фреймворк на Python, который упрощает создание веб-приложений. Он предлагает множество встроенных возможностей для быстрой разработки.</p>
+        <hr>
+        <p>В этом посте мы рассмотрим ключевые функции Django, включая маршрутизацию, работу с базами данных и создание шаблонов.</p>
+
+        <h2>Маршрутизация</h2>
+        <p>Django использует файл <code>urls.py</code> для определения маршрутов. Например:</p>
+        <pre><code>from django.urls import path
+          from . import views
+          urlpatterns = [
+          path('', views.home, name='home'),
+          ]</code></pre>
+        <h2>Модели</h2>
+        <p>Модели в Django представляют данные и структуру базы данных. Пример модели:</p>
+        <pre><code>from django.db import models
+          class Post(models.Model):
+          title = models.CharField(max_length=100)
+          content = models.TextField()
+          created_at = models.DateTimeField(auto_now_add=True)
+        </code></pre>
+        <h2>Шаблоны</h2>
+        <p>Django использует систему шаблонов для генерации HTML. Пример:</p>
+        <pre><code>&lt;h1&gt;{{ post.title }}&lt;/h1&gt;
+          &lt;p&gt;{{ post.content }}&lt;/p&gt;
+        </code></pre>
+        <h2>Формы</h2>
+        <p>Django предоставляет мощные инструменты для работы с формами. Пример формы:</p>
+        <pre><code>from django import forms
+          class PostForm(forms.ModelForm):
+          class Meta:
+          model = Post
+          fields = ['title', 'content']
+        </code></pre>
+
+        <h2>Админка</h2>
+        <p>Django включает встроенную админ-панель для управления моделями:</p>
+        <pre><code>from django.contrib import admin
+          from .models import Post
+          admin.site.register(Post)
+        </code></pre>
+
+        <nav class="blog-pagination" aria-label="Pagination">
+          <a class="btn btn-outline-primary rounded-pill" href="#">Старые записи</a>
+          <a class="btn btn-outline-secondary rounded-pill disabled">Новые записи</a>
+        </nav>
+
+      </article>
+
+      <article class="blog-post">
+        <h2 class="display-5 link-body-emphasis mb-1">Особенности Django</h2>
+        <p class="blog-post-meta">16 декабря 2024 года</p>
+
+        <p>Django предлагает множество дополнительных возможностей, таких как система аутентификации, поддержка REST API и интеграция с различными библиотеками.</p>
+        <blockquote class="blockquote">
+          <p>Надежность и безопасность — ключевые особенности Django.</p>
+        </blockquote>
+        <p>Эти функции делают Django отличным выбором для создания сложных веб-приложений.</p>
+
+        <h3>Примеры использования</h3>
+        <p>Вот несколько примеров, как можно использовать Django:</p>
+        <ul>
+          <li>Создание блогов и новостных сайтов</li>
+          <li>Разработка e-commerce платформ</li>
+          <li>Создание API для мобильных приложений</li>
+        </ul>
+      </article>
+
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary rounded-pill" href="#">Старые записи</a>
+        <a class="btn btn-outline-secondary rounded-pill disabled">Новые записи</a>
+      </nav>
+    </div>
+
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4 mb-3 bg-body-tertiary rounded">
+          <h4 class="fst-italic">О Django</h4>
+          <p class="mb-0">Django — это мощный инструмент для разработки веб-приложений, который позволяет быстро создавать надежные и масштабируемые решения.</p>
+        </div>
+
+        <div>
+          <h4 class="fst-italic">Недавние посты</h4>
+          <ul class="list-unstyled">
+            <li><a href="#">Основы Django ORM</a></li>
+            <li><a href="#">Создание REST API с Django</a></li>
+            <li><a href="#">Тестирование приложений на Django</a></li>
+          </ul>
+        </div>
+
+        <div class="p-4">
+          <h4 class="fst-italic">Архивы</h4>
+          <ol class="list-unstyled mb-0">
+            <li><a href="#">Декабрь 2024</a></li>
+            <li><a href="#">Ноябрь 2024</a></li>
+            <li><a href="#">Октябрь 2024</a></li>
+          </ol>
+        </div>
+
+        <div class="p-4">
+          <h4 class="fst-italic">В других местах</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

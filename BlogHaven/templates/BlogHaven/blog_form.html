@@ -1,0 +1,23 @@
+{% extends 'BlogHaven/base.html' %}
+{% load my_blog_tags %}
+
+{% block title %}BlogHaven form{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Добавить пост</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {% for f in form %}
+        <div class="form-group mt-3">
+            <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+            {{ f }}
+        </div>
+        <div class="form-error">{{ f.errors }}</div>
+        {% endfor %}
+        <button type="submit" class="btn btn-outline-success mt-2">Сохранить</button>
+        <a href="{% url 'BlogHaven:blog_list' %}" class="mt-2 btn btn-outline-info mt-2">Назад</a>
+    </form>
+</div>
+{% endblock %}

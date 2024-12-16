@@ -1,0 +1,18 @@
+{% extends 'BlogHaven/base.html' %}
+{% load my_blog_tags %}
+
+{% block title %}BlogHaven delete{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Удаление поста</h2>
+    <p>Вы действительно хотите удалить пост -  {{ object.title }} - ?  :((</p>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-outline-danger mt-2">Удалить</button>
+        <a href="{% url 'BlogHaven:blog_list' %}" class="mt-2 btn btn-outline-success mt=2">Назад</a>
+    </form>
+</div>
+{% endblock %}
