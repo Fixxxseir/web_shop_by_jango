@@ -2,9 +2,11 @@
 
 {% block title %}Vebshop Partnership{% endblock %}
 
-{% block content %}
-{% include 'includes/header_add_product.html' %}
+{% block header %}
+{% include 'includes/header.html' %}
+{% endblock %}
 
+{% block content %}
 
 <div class="container mt-5">
     <h2>Добавить товар</h2>
@@ -21,6 +23,7 @@
         <button type="submit" class="btn btn-primary mt-2">Добавить товар</button>
     </form>
 </div>
+
 {% endblock %}
 <!--        <div class="form-group mt-3">-->
 <!--            <label for="{{ form.category.id_for_label }}">Категория</label>-->

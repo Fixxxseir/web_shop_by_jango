@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -46,6 +47,7 @@ class Product(models.Model):
     purchase_price = models.FloatField(verbose_name="Цена продукта", help_text="Введите цену продукта")
     created_at = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateField(auto_now=True, verbose_name="Дата последнего изменения")
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="Slug")
 
     class Meta:
         verbose_name = "Продукт"
@@ -58,6 +60,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f"'{self.name}' в категории: {self.category}"
+
+    def get_absolute_url(self):
+        return reverse("catalog:product_detail", kwargs={"product_slug": self.slug})
 
 
 class Contact(models.Model):

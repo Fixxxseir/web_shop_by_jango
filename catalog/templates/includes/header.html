@@ -1,14 +1,18 @@
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
     <div class="col-md-7 p-lg-5 mx-auto my-5">
-        <h1 class="display-3 fw-bold">Здесь вы можете добавить свой товар</h1>
-        <h3 class="fw-normal text-muted mb-3">Всегда ждём вашу обратную связь:)</h3>
+        <h1 class="display-3 fw-bold">{{ main_title }}</h1>
+        <h3 class="fw-normal text-muted mb-3">{{ sub_title }}</h3>
         <div class="d-flex gap-3 justify-content-center lead fw-normal">
-            <a class="icon-link" href="{% url 'catalog:home' %}">
-                На главную
+            {% if main_link %}
+            <a class="icon-link" href="{% url main_link %}">
+                {{ main_link_text }}
                 <svg class="bi"><use xlink:href="#chevron-right"/></svg>
             </a>
-            <a class="icon-link" href="{% url 'catalog:catalog' %}">
-                Назад к покупкам
+            {% else %}
+            <span class="icon-link">{{ main_link_text }}</span>
+            {% endif %}
+            <a class="icon-link" href="{% url sub_link %}">
+                {{ sub_link_text }}
                 <svg class="bi"><use xlink:href="#chevron-right"/></svg>
             </a>
         </div>
