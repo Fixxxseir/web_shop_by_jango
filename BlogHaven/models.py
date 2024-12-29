@@ -31,7 +31,7 @@ class Blog(models.Model):
 	is_notification_sent = models.BooleanField(default=False)
 
 	object = models.Manager
-	# published = PublishedManager()
+	published = PublishedManager()
 
 	def get_absolute_url(self):
 		return reverse("BlogHaven:blog_detail", kwargs={"blog_slug": self.slug})
