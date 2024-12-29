@@ -88,14 +88,14 @@ class ProductListView(ListView):
     model = Product
     paginate_by = 6
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        paginator = Paginator(self.get_queryset(), self.paginate_by)
-        page = self.request.GET.get("page", 1)
-        products = paginator.page(page)
-        context["products"] = products
-
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     paginator = Paginator(self.get_queryset(), self.paginate_by)
+    #     page = self.request.GET.get("page", 1)
+    #     products = paginator.page(page)
+    #     context["products"] = products
+    #
+    #     return context
 
 
 # def catalog(request):
@@ -111,11 +111,10 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
+    slug_url_kwarg = 'product_slug'
 
     def get_object(self, queryset=None):
-        product_slug = self.kwargs.get("product_slug")
-        return get_object_or_404(Product, slug=product_slug)
-
+        return get_object_or_404(Product, slug=self.kwargs[self.slug_url_kwarg])
 
 # def product_detail(request, product_slug):
 #     product = get_object_or_404(Product, slug=product_slug)
