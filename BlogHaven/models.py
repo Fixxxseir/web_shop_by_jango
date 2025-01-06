@@ -28,6 +28,14 @@ class Blog(models.Model):
 		verbose_name="Счетчик просмотров",
 		help_text="Укажите количество просмотров",
 		default=0)
+
+	class Meta:
+		verbose_name = "Статья"
+		verbose_name_plural = "Статьи"
+		ordering = [
+			"view_counter",
+		]
+
 	is_notification_sent = models.BooleanField(default=False)
 
 	object = models.Manager
