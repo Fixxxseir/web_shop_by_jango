@@ -14,10 +14,12 @@ class User(AbstractUser):
     token = models.CharField(max_length=100, verbose_name="Token", blank=True, null=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ['username',]
+    REQUIRED_FIELDS = [
+        "username",
+    ]
 
     class Meta:
-        verbose_name = 'Пользователь'
+        verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
 
     def __str__(self):

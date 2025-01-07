@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
@@ -67,13 +68,13 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
-    slug_url_kwarg = 'product_slug'
+    slug_url_kwarg = "product_slug"
 
     def get_object(self, queryset=None):
         return get_object_or_404(Product, slug=self.kwargs[self.slug_url_kwarg])
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = "catalog/add_product.html"
@@ -99,10 +100,10 @@ class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
     template_name = "catalog/add_product.html"
-    slug_url_kwarg = 'update_slug'
+    slug_url_kwarg = "update_slug"
 
     def get_success_url(self):
-        return reverse('catalog:product_detail', args=[self.kwargs.get('update_slug')])
+        return reverse("catalog:product_detail", args=[self.kwargs.get("update_slug")])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -122,5 +123,4 @@ class ProductUpdateView(UpdateView):
 
 class ProductDeleteView(DeleteView):
     model = Product
-    success_url = reverse_lazy('catalog:product_list')
-
+    success_url = reverse_lazy("catalog:product_list")
