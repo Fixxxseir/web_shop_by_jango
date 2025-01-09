@@ -74,7 +74,7 @@ class ProductDetailView(DetailView):
         return get_object_or_404(Product, slug=self.kwargs[self.slug_url_kwarg])
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
     template_name = "catalog/add_product.html"
@@ -96,7 +96,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return context
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = "catalog/add_product.html"
@@ -121,6 +121,6 @@ class ProductUpdateView(UpdateView):
         return context
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy("catalog:product_list")
