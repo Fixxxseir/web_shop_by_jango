@@ -74,7 +74,7 @@ class ProductDetailView(DetailView):
         return get_object_or_404(Product, slug=self.kwargs[self.slug_url_kwarg])
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = "catalog/add_product.html"
