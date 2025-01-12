@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-
+{% if user.is_authenticated %}
 <div class="container mt-5">
     <h2>Добавить товар</h2>
     <form  class="row" method="POST" enctype="multipart/form-data">
@@ -26,7 +26,14 @@
         </div>
     </form>
 </div>
-
+{% else %}
+<div class="container px-3 py-3 pt-md-5 pb-md-4 text-center">
+    <a class="icon-link" href="{% url 'users:register' %}">
+        <h1>Сначала зарегистрируйтесь</h1>
+        <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+    </a>
+</div>
+{% endif %}
 {% endblock %}
 <!--        <div class="form-group mt-3">-->
 <!--            <label for="{{ form.category.id_for_label }}">Категория</label>-->
