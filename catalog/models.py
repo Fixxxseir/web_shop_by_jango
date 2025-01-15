@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from users.models import User
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -22,6 +24,10 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    STATUS_CHOICES = [
+        ("not_published", "Не опубликовано"),
+        ("published", "Опубликовано"),
+    ]
     name = models.CharField(
         max_length=150, verbose_name="Наименование продукта", help_text="Введите наименование продукта"
     )
@@ -48,6 +54,15 @@ class Product(models.Model):
     created_at = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateField(auto_now=True, verbose_name="Дата последнего изменения")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="Slug")
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default="not_published")
+    owner = models.ForeignKey(
+        User,
+        verbose_name="Владелец",
+        help_text="Укажите владельца продукта",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     class Meta:
         verbose_name = "Продукт"
@@ -56,6 +71,9 @@ class Product(models.Model):
             "name",
             "category",
             "purchase_price",
+        ]
+        permissions = [
+            ("can_unpublish_product", "can unpublish product"),
         ]
 
     def __str__(self):
