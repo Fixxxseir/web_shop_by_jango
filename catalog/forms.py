@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.forms import BooleanField
+from django.forms import BooleanField, ModelForm
 from django.utils.deconstruct import deconstructible
 
 from catalog.models import Product, Category
@@ -75,3 +75,9 @@ class ProductForm(StyleProductMixin, forms.ModelForm):
                 raise ValidationError("Фото не должно превышать 5 МБ")
 
         return image
+
+
+class ProductModeratorForm(StyleProductMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ("status", )

@@ -4,7 +4,7 @@
 {% block title %}Vebshop DELETE{% endblock %}
 
 {% block content %}
-
+{% if perms.catalog.delete_product or user == object.owner %}
 <div class="container mt-5">
     <h2>Удаление товара</h2>
     <p>Вы действительно хотите удалить товар - {{ object.name }}  - ?</p>
@@ -24,5 +24,5 @@
         </div>
     </form>
 </div>
-
+{% endif %}
 {% endblock %}

@@ -36,6 +36,9 @@ class Blog(models.Model):
         ordering = [
             "view_counter",
         ]
+        permissions = [
+            ("can_publish_post", "can publish post"),
+        ]
 
     is_notification_sent = models.BooleanField(default=False)
 
