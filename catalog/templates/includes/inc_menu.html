@@ -1,50 +1,76 @@
 <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
-  <div class="container">
-    <a class="navbar-brand d-md-none" href="#">
-      <svg class="bi" width="24" height="24"><use xlink:href="#aperture"/></svg>
-      Aperture
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="#offcanvas" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="#offcanvas" aria-labelledby="#offcanvasLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="#offcanvasLabel">Aperture</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav flex-grow-1 justify-content-between">
-          <li class="nav-item"><a class="nav-link" href="#">
-            <svg class="bi" width="24" height="24"><use xlink:href="#aperture"/></svg>
-            Vebshop
-          </a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'catalog:home' %}">Главная</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'catalog:product_list' %}">Каталог</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'catalog:contacts' %}">Контакты</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'catalog:add_product' %}">Сотрудничество</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'BlogHaven:blog_list' %}">Блог</a></li>
-          {% if user.is_authenticated %}
-          <li class="nav-item"><a class="nav-link" href="{% url 'users:edit_profile' %}">Профиль</a></li>
-          <li class="nav-item">
-                    <form method="post" action="{% url 'users:logout' %}" style="display: inline">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-link nav-link">Выйти</button>
-                    </form>
-          </li>
-          {% else %}
-          <li class="nav-item"><a class="nav-link" href="{% url 'users:register' %}">Регистрация</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Войти</a></li>
-          {% endif %}
+    <div class="container">
+        <a class="navbar-brand d-md-none" href="#">
+            <svg class="bi" width="24" height="24">
+                <use xlink:href="#aperture"/>
+            </svg>
+            Aperture
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                aria-controls="#offcanvas" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="#offcanvas" aria-labelledby="#offcanvasLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="#offcanvasLabel">Aperture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav flex-grow-1 justify-content-between">
+                    <li class="nav-item"><a class="nav-link" href="#">
+                        <svg class="bi" width="24" height="24">
+                            <use xlink:href="#aperture"/>
+                        </svg>
+                        Vebshop
+                    </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:home' %}">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:product_list' %}">Каталог</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Выбор категории
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'catalog:category_product' 1 %}">Продукты</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'catalog:category_product' 2 %}">Техника</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'catalog:category_product' 3 %}">Товар без
+                                    категории</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:contacts' %}">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:add_product' %}">Сотрудничество</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'BlogHaven:blog_list' %}">Блог</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'users:edit_profile' %}">Профиль</a></li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'users:logout' %}" style="display: inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link">Выйти</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'users:register' %}">Регистрация</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Войти</a></li>
+                    {% endif %}
 
-          <li class="nav-item"><a class="nav-link" href="#">
-            <svg class="bi" width="24" height="24"><use xlink:href="#cart"/></svg>
-          </a></li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
-          <button class="btn btn-btn-outline-secondary" type="submit"></button>
-        </form>
-      </div>
+                    <li class="nav-item"><a class="nav-link" href="#">
+                        <svg class="bi" width="24" height="24">
+                            <use xlink:href="#cart"/>
+                        </svg>
+                    </a></li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+                    <button class="btn btn-btn-outline-secondary" type="submit"></button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
