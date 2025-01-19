@@ -1,13 +1,14 @@
 import secrets
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy, reverse
-from django.views.generic.edit import CreateView, UpdateView
 from django.core.mail import send_mail
-from .forms import UserRegisterForm, UserEditForm
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView
 
 from config.settings import EMAIL_HOST_USER
+
+from .forms import UserEditForm, UserRegisterForm
 from .models import User
 
 
