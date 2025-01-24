@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms import BooleanField, ModelForm
 from django.utils.deconstruct import deconstructible
 
-from catalog.models import Product, Category
+from catalog.models import Category, Product
 
 
 @deconstructible
@@ -80,4 +80,4 @@ class ProductForm(StyleProductMixin, forms.ModelForm):
 class ProductModeratorForm(StyleProductMixin, ModelForm):
     class Meta:
         model = Product
-        fields = ("status", )
+        fields = ("status",)

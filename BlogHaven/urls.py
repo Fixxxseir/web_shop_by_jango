@@ -1,6 +1,7 @@
 from django.urls import path
+
 from BlogHaven.apps import BloghavenConfig
-from BlogHaven.views import BlogListView, BlogCreateView, BlogDetailView, BlogUpdateView, BlogDeleteView
+from BlogHaven.views import BlogCreateView, BlogDeleteView, BlogDetailView, BlogListView, BlogUpdateView
 
 app_name = BloghavenConfig.name
 

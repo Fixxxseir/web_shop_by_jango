@@ -1,14 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, request, HttpResponseForbidden
-from django.urls import reverse_lazy, reverse
+from django.http import HttpResponse, HttpResponseForbidden, request
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from catalog.models import Product, Contact, Category
 from catalog.forms import ProductForm, ProductModeratorForm
+from catalog.models import Category, Contact, Product
+from catalog.services import ProductServices
 
 
 class ProductHomeView(View):
@@ -57,6 +58,9 @@ class ProductListView(ListView):
     model = Product
     paginate_by = 6
 
+    def get_queryset(self):
+        return ProductServices.get_products_from_cache()
+
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     paginator = Paginator(self.get_queryset(), self.paginate_by)
@@ -65,6 +69,22 @@ class ProductListView(ListView):
     #     context["products"] = products
     #
     #     return context
+
+
+class CategoryProductListView(ListView):
+    model = Product
+    template_name = "catalog/category_product.html"
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        category_id = self.kwargs["category_id"]
+
+        context["object_list"] = ProductServices.get_product_by_category(category_id)
+        context["categories"] = Category.objects.all()
+
+        return context
 
 
 class ProductDetailView(DetailView):
@@ -132,7 +152,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         user = self.request.user
         if user == self.object.owner:
             return ProductForm
-        if user.has_perm('catalog.can_unpublish_product') and user.has_perm('catalog.delete_product'):
+        if user.has_perm("catalog.can_unpublish_product") and user.has_perm("catalog.delete_product"):
             return ProductModeratorForm
         raise PermissionDenied("Нет прав на изменение или удаление продукта")
 
@@ -140,16 +160,16 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy("catalog:product_list")
-    permission_required = 'catalog.delete_product'
+    permission_required = "catalog.delete_product"
 
     def get_object(self, queryset=None):
         product = super().get_object(queryset)
         user = self.request.user
 
-        if product.owner == user or user.has_perm('catalog.delete_product'):
+        if product.owner == user or user.has_perm("catalog.delete_product"):
             return product
 
-        raise PermissionDenied('Нет прав на удаление продукта')
+        raise PermissionDenied("Нет прав на удаление продукта")
 
 
 class StatusProductView(LoginRequiredMixin, View):
@@ -158,13 +178,13 @@ class StatusProductView(LoginRequiredMixin, View):
     def post(self, request, product_slug):
         product = get_object_or_404(Product, slug=product_slug)
 
-        if not request.user.has_perm('catalog.can_unpublish_product'):
-            return HttpResponseForbidden('У вас нет прав для изменения статуса продукта')
+        if not request.user.has_perm("catalog.can_unpublish_product"):
+            return HttpResponseForbidden("У вас нет прав для изменения статуса продукта")
 
-        if product.status == 'not_published':
-            product.status = 'published'
+        if product.status == "not_published":
+            product.status = "published"
         else:
-            product.status = 'not_published'
+            product.status = "not_published"
         product.save()
 
-        return redirect('catalog:product_detail', product_slug=product_slug)
+        return redirect("catalog:product_detail", product_slug=product_slug)

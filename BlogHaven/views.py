@@ -1,12 +1,12 @@
 from django.conf import settings
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.mail import send_mail
-from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.shortcuts import get_object_or_404
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from BlogHaven.models import Blog
 from BlogHaven.forms import BlogForm
+from BlogHaven.models import Blog
 
 
 class BlogListView(ListView):
@@ -20,7 +20,7 @@ class BlogCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Blog
     form_class = BlogForm
     success_url = reverse_lazy("BlogHaven:blog_list")
-    permission_required = 'BlogHaven.add_blog'
+    permission_required = "BlogHaven.add_blog"
 
 
 class BlogDetailView(DetailView):
@@ -53,7 +53,7 @@ class BlogDetailView(DetailView):
 class BlogUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Blog
     form_class = BlogForm
-    permission_required = 'BlogHaven.change_blog'
+    permission_required = "BlogHaven.change_blog"
 
     def get_object(self, queryset=None):
         slug = self.kwargs.get("slug")
@@ -68,7 +68,7 @@ class BlogUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy("BlogHaven:blog_list")
-    permission_required = 'BlogHaven.delete_blog'
+    permission_required = "BlogHaven.delete_blog"
 
     def get_object(self, queryset=None):
         slug = self.kwargs.get("slug")
