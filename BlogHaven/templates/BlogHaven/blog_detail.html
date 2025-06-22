@@ -1,0 +1,46 @@
+{% extends 'BlogHaven/base.html' %}
+{% load my_blog_tags %}
+
+{% block title %}BlogHaven detail{% endblock %}
+
+{% block content %}
+<div class="row mb-2">
+    <div class="col-12">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{ object.title }}</h3>
+          <p class="mt-3 mb-2 card-text mb-auto">Контент: {{ object.content }}</p>
+          <p class="mt-3 mb-2 card-text mb-auto">Опубликовано: {{ object.created_at }}</p>
+          <p class="mt-3 mb-2 card-text mb-auto">
+            Статус публикации:
+            {% if object.is_published %}
+              Опубликовано
+            {% else %}
+              Не опубликовано
+            {% endif %}
+          </p>
+          <p class="mt-3 mb-2 card-text mb-auto">Просмотров: {{ object.view_counter }}</p>
+
+          {% if perms.BlogHaven.change_blog %}
+            <a href="{% url 'BlogHaven:blog_update' object.slug %}" type="button" class="mt-3 btn btn-outline-info btn-sm">Изменить</a>
+          {% endif %}
+
+          {% if perms.BlogHaven.delete_blog %}
+            <a href="{% url 'BlogHaven:blog_delete' object.slug %}" class="mt-2 btn btn-outline-danger btn-sm">Удалить</a>
+          {% endif %}
+
+          <a href="{% url 'BlogHaven:blog_list' %}" class="mt-2 btn btn-outline-danger btn-sm">Назад</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          {% if object.image %}
+            <img src="{{ object.image | media_filter_blog }}" style="width: 200px; height: 250px;" />
+          {% else %}
+            <div style="width: 200px; height: 250px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+              <p style="color: black">Нет изображения</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
